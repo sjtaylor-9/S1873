@@ -1,0 +1,44 @@
+# Ignore sorted and unsorted data
+AnalysisTrees/
+FragmentTrees/
+HistFiles/
+CalibratedTrees/
+UncalibratedTrees/
+MidasFiles/
+MidasFiles_2019/
+
+# Ignore unused files
+Sam_Sort/newSortCode/
+Sam_Sort/Analysis/Ring_energy_vs_sector_energy*
+Calibrations/S3PosOffset/S3HitMap/
+Calibrations/S3PosOffset/ZoffsetOutputs/
+Calibrations/AlphaCalibration/RingEnergies/CamCalibrationFile/
+Calibrations/AlphaCalibration/Triple_alpha_plots/CamCalibrationFIle/
+
+# Ignore executable files
+Sam_Sort/SortData_Sam
+Sam_Sort/Analysis/S3DeadLayer/S3DeadLayer
+Sam_Sort/Analysis/S3DeadLayer/SectorSegmentation/S3SectorDeadLayer
+Sam_Sort/Analysis/ExFit/ExcErrCalc
+Calibrations/GammaCalibration/GammaSort
+Calibrations/AlphaCalibration/S3_triple_alpha_calibration
+Calibrations/S3PosOffset/HitMap_XY
+Calibrations/S3PosOffset/HitMap_XYZ
+Calibrations/S3PosOffset/HitMapBeam
+Calibrations/CalibFileSetup/MyCalibrations/ConstructCalibrationFile
+Calibrations/CalibFileSetup/MyCalibrations/SetupConfFile
+Calibrations/CalibFileSetup/MyCalibrations/AlphaCalibrations/Alphacal
+Calibrations/CalibFileSetup/MyCalibrations/SSBCalibrations/SSBCal
+Calibrations/CalibFileSetup/MyCalibrations/TIGRESSCalibrations/Calibrate
+
+
+# Ignore output files
+*.root
+*.pdf
+*.csv
+*.txt
+*.dat
+*.png
+
+# Ignore nfs files
+.nfs*
