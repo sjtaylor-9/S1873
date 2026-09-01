@@ -25,6 +25,7 @@ Calibrations/AlphaCalibration/S3_triple_alpha_calibration
 Calibrations/S3PosOffset/HitMap_XY
 Calibrations/S3PosOffset/HitMap_XYZ
 Calibrations/S3PosOffset/HitMapBeam
+Calibrations/S3PosOffset/HitMap_XYZ_gammaGated
 Calibrations/CalibFileSetup/MyCalibrations/ConstructCalibrationFile
 Calibrations/CalibFileSetup/MyCalibrations/SetupConfFile
 Calibrations/CalibFileSetup/MyCalibrations/AlphaCalibrations/Alphacal
