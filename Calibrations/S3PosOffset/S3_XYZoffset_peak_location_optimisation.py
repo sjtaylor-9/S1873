@@ -8,15 +8,15 @@ inner_contour = 0.227
 number_contours = 8
 
 contour_width = (outer_contour - inner_contour) / number_contours
-
 sigma_acceptance = inner_contour + contour_width
-
 df = df[(df["sigma"] > inner_contour) & (df["sigma"] < sigma_acceptance)]
 
-df = df[(df["mean_1745"] > 1.74) & (df["mean_1745"] < 1.75)]
-
+df = df.sort_values(["x", "y", "z"])
 print(df)
+# Save to a text file
+df.to_csv("inner_contour.dat", index=False)
 
+df = df[(df["mean_1745"] > 1.74) & (df["mean_1745"] < 1.75)]
 nndc_energy = 1.74591
 percentage_diff = (((df["mean_1745"] - nndc_energy) / nndc_energy)).abs() * 100
 #optimal_offset = df.loc[percentage_diff.idxmin(), ["x", "y", "z"]].values
