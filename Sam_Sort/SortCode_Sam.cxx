@@ -32,9 +32,9 @@ double tigtigT[2] = {-100, 100};
 
 double pi = TMath::Pi();
 double s3_phi_offset = 90;
-double s3_x_offset = -1.7;  // S3 x offset (mm)
-double s3_y_offset = -1.4;  // S3 y offset (mm)
-double s3_z_offset = 2.4;    // S3 z offset (mm)
+double s3_x_offset = -3.0;  // S3 x offset (mm)
+double s3_y_offset = -0.2;  // S3 y offset (mm)
+double s3_z_offset = 3.4;    // S3 z offset (mm)
 double Beta;
 double thetalab; 
 double excite; 
@@ -539,7 +539,24 @@ void SortCode_Sam::SortData(char const * afile, char const * calfile, char const
 										if (gamma.dopE > 4963.26 && gamma.dopE < 5018.74) { // 2 sigma
 											h_excite_PIdgated_4984keVgated->Fill(DL_and_t_in_LiF_corr_excite);
 										}
+										if (gamma.dopE > 4241.59 && gamma.dopE < 4346.41) { // 3 sigma
+											h_excite_PIdgated_4286keVgated->Fill(DL_and_t_in_LiF_corr_excite);
+										}
+										if (gamma.dopE > 3139.01 && gamma.dopE < 3206.99) { // 3 sigma
+											h_excite_PIdgated_3166keVgated->Fill(DL_and_t_in_LiF_corr_excite);
+										}
+										if (gamma.dopE > 5060.8 && gamma.dopE < 5133.2) { // 2 sigma
+											h_excite_PIdgated_5080_5093keVgated->Fill(DL_and_t_in_LiF_corr_excite);
+										}
+										if (gamma.dopE > 3698.28 && gamma.dopE < 3783.72) { // 3 sigma
+											h_excite_PIdgated_3745keVgated->Fill(DL_and_t_in_LiF_corr_excite);
+										}
+										if (gamma.dopE > 3351.89 && gamma.dopE < 3456.11) { // 3 sigma
+											h_excite_PIdgated_3400keVgated->Fill(DL_and_t_in_LiF_corr_excite);
+										}
+
 										
+										// Reverse gates
 										if (DL_and_t_in_LiF_corr_excite > 7.180 && DL_and_t_in_LiF_corr_excite < 7.460) {
 											h_dopE_addback_reverseGate_lower->Fill(gamma.dopE);	//Reverse gate 1
 										}

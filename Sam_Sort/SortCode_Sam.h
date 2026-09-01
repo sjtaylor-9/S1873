@@ -158,8 +158,18 @@ void SortCode_Sam::Initialise() {
   samList->Add(h_excite_PIdgated_3538keVgated);
   h_excite_PIdgated_5374keVgated= new TH1F("h_excite_PIdgated_5374keVgated","S3 Excitation Energy PID and 5374 keV gamma gated",1500,0,15); // Excitation Energy
   samList->Add(h_excite_PIdgated_5374keVgated);
-  
-  
+  h_excite_PIdgated_4984keVgated= new TH1F("h_excite_PIdgated_4984keVgated","S3 Excitation Energy PID and 4984 keV gamma gated",1500,0,15); // Excitation Energy
+  samList->Add(h_excite_PIdgated_4984keVgated);
+  h_excite_PIdgated_4286keVgated= new TH1F("h_excite_PIdgated_4286keVgated","S3 Excitation Energy PID and 4286 keV gamma gated",1500,0,15); // Excitation Energy
+  samList->Add(h_excite_PIdgated_4286keVgated);
+  h_excite_PIdgated_3166keVgated= new TH1F("h_excite_PIdgated_3166keVgated","S3 Excitation Energy PID and 3166 keV gamma gated",1500,0,15); // Excitation Energy
+  samList->Add(h_excite_PIdgated_3166keVgated);
+  h_excite_PIdgated_5080_5093keVgated= new TH1F("h_excite_PIdgated_5080_5093keVgated","S3 Excitation Energy PID and 5080/5093 keV gamma gated",1500,0,15); // Excitation Energy
+  samList->Add(h_excite_PIdgated_5080_5093keVgated);
+  h_excite_PIdgated_3745keVgated= new TH1F("h_excite_PIdgated_3745keVgated","S3 Excitation Energy PID and 3745 keV gamma gated",1500,0,15); // Excitation Energy
+  samList->Add(h_excite_PIdgated_3745keVgated);
+  h_excite_PIdgated_3400keVgated= new TH1F("h_excite_PIdgated_3400keVgated","S3 Excitation Energy PID and 3400 keV gamma gated",1500,0,15); // Excitation Energy
+  samList->Add(h_excite_PIdgated_3400keVgated);
   
   h_dopE_addback_gated = new TH1F("h_dopE_addback_gated","Doppler-Corrected Add-Back Energy",10000,0,10000); // Add-Back Energy
   samList->Add(h_dopE_addback_gated);

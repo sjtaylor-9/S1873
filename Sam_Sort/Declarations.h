@@ -31,6 +31,7 @@ TH1F *h_ejectile_energy_v_thetalab;
 // S3-EMMA:
 	// PID plots
 TH1F *h_excite_pgac_gated, *h_pid_s3emma, *h_excite_pid_gated, *h_S3spec_noMassGate, *h_excite_PIdgated_3538keVgated, *h_excite_PIdgated_5374keVgated, *h_excite_PIdgated_6408keVgated, *h_excite_PIdgated_5902keVgated, *h_excite_PIdgated_4556keVgated, *h_excite_PIdgated_351keVgated, *h_excite_PIdgated_1395keVgated, *h_excite_PIdgated_1745keVgated, *h_excite_PIdgated_1120keVgated, *h_excite_PIdgated_2516keVgated;
+TH1F *h_excite_PIdgated_4984keVgated, *h_excite_PIdgated_4286keVgated, *h_excite_PIdgated_3166keVgated, *h_excite_PIdgated_5080_5093keVgated, *h_excite_PIdgated_3745keVgated, *h_excite_PIdgated_3400keVgated;
 TH1F *h_excite_ringA_6408, *h_excite_ringB_6408, *h_excite_ringC_6408, *h_excite_ringD_6408, *h_excite_ringE_6408, *h_excite_ringF_6408;
 TH1F *h_excite_ringA_4556, *h_excite_ringB_4556, *h_excite_ringC_4556, *h_excite_ringD_4556, *h_excite_ringE_4556, *h_excite_ringF_4556;
 TH2F *h_icSumVSi_s3emma, *h_gammagamma;
