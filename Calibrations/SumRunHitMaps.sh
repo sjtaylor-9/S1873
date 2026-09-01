@@ -4,7 +4,7 @@
 # find . -maxdepth 1 -type f -name 'HitMap*.root' ! -regex '.*/.*_[0-9][0-9][0-9]\.root' -delete
 
 declare -a FILE_LIST # array to hold file names
-HIST_DIR=./HitMaps/XYZoffset/2019/Q2
+HIST_DIR=./HitMaps/GammaGated/2020
 
 firstrun=52829
 lastrun=52928
