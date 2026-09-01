@@ -45,8 +45,11 @@ void ExFit() {
     // ----------------------------------------------------------------------------
     // Populated states and experimental resolution in the excitation energy
     // ----------------------------------------------------------------------------
-    std::vector<double> populated_states = {5.334, 
-                                            7.362, 7.4, 7.982, 8.155};
+    std::vector<double> populated_states = {2.866, 3.735, 4.433, 5.334, 5.431, 6.033, 
+                                            7.362, 7.42, 7.982, 8.155,
+                                            //2.794, 4.526, 4.725, 5.549, 5.822, // States that I have not yet confirmed are populated but are seen Angus 2025
+                                            //7.47, 7.559, 7.602, 7.619, 7.655, 7.74, 7.82, 7.96, 7.98, 8.009, 8.069, 8.146, 8.16 // States that I have not yet confirmed are populated but are seen in Hammache 2024
+                                        };
     double ex_res = 0.125; // MeV
     
     // ----------------------------------------------------------------------------
@@ -54,8 +57,11 @@ void ExFit() {
     // ----------------------------------------------------------------------------
     // Only want to the fit the excitation energy spectrum in the region of defined populated states.
     // So +- 3 sigma of highest and lowest populated state
-    double fit_min = populated_states.front() - 3.0 * ex_res;
-    double fit_max = populated_states.back()  + 3.0 * ex_res;
+    double fit_min = *std::min_element(populated_states.begin(), populated_states.end())
+                    - 3.0 * ex_res;
+    double fit_max = *std::max_element(populated_states.begin(), populated_states.end())
+                    + 3.0 * ex_res;
+
 
     std::cout << "Fit range: "
               << fit_min << " - " << fit_max << " MeV"
@@ -93,20 +99,24 @@ void ExFit() {
     // The amplitude is the bin content at the mean energy of the state +- 20%
     // ------------------------------------------------------------
 
-    double sigma_min = ex_res - 0.050;  // ex_res - 50 keV
-    double sigma_max = ex_res + 0.050;  // ex_res + 50 keV
+    double sigma_min = ex_res - 0.05;  // ex_res - 50 keV
+    double sigma_max = ex_res + 0.05;  // ex_res + 50 keV
 
     for (int i = 0; i < nStates; ++i) {
+        // Set fit parameter names
+        fitFunc->SetParName(i, Form("Amp_%.3fMeV", populated_states[i]));
+        fitFunc->SetParName(nStates + i, Form("Sigma_%.3fMeV", populated_states[i]));
+
         // --------------------------------------------------------
         // Amplitude
         // --------------------------------------------------------
         int bin = h_excite->FindBin(populated_states[i]);
         double counts = h_excite->GetBinContent(bin);
 
-        fitFunc->SetParameter(i, counts); // Initial amplitude = bin content at the fixed mean
-        fitFunc->SetParLimits(            // Allow amplitude to vary by +/- 20%
+        fitFunc->SetParameter(i, counts); // Initial amplitude guess = bin content at the fixed mean
+        fitFunc->SetParLimits(            
             i,
-            0.80 * counts,
+            0.5 * counts,
             1.20 * counts
         );
         // --------------------------------------------------------
@@ -139,22 +149,43 @@ void ExFit() {
         kGreen + 2,
         kMagenta,
         kOrange + 1,
-        kCyan + 1
+        kCyan + 1,
+        kSpring-7,
+        kViolet,
+        kYellow,
+        // kBlack,
+        // kBlack,
+        // kBlack,
+        // kBlack,
+        // kBlack,
+        // kGray+2,
+        // kGray+2,
+        // kGray+2,
+        // kGray+2,
+        // kGray+2,
+        // kGray+2,
+        // kGray+2,
+        // kGray+2,
+        // kGray+2,
+        // kGray+2,
+        // kGray+2,
+        // kGray+2,
+        // kGray+2,
     };
 
     for (size_t i = 0; i < populated_states.size(); ++i) {
 
+        // Define TF1 using parameter indices [0] for amplitude and [1] for sigma
         TF1 *component = new TF1(
             Form("component_%zu", i),
-            Form("[%zu]*exp(-0.5*((x-%f)/%f)^2)",
-                i,
-                populated_states[i],
-                ex_res),
+            Form("[0]*exp(-0.5*((x-%f)/[1])^2)", populated_states[i]),
             fit_min,
             fit_max
         );
 
-        component->SetParameter(i, fitFunc->GetParameter(i));
+        // Set parameters directly from the master fit result
+        component->SetParameter(0, fitFunc->GetParameter(i));           // Fitted Amplitude
+        component->SetParameter(1, fitFunc->GetParameter(nStates + i)); // Fitted Sigma
 
         component->SetLineColor(colors[i]);
         component->SetLineWidth(2);
@@ -194,4 +225,5 @@ void ExFit() {
                     << std::endl;
         }
 
+        c1->SaveAs("FittedEx.pdf");
 }

@@ -131,4 +131,64 @@ void FitGammaGatedEx() {
     gaus_fit_1120->Draw("same");
     c4->SaveAs("FittedGammaGatedEx/Ex_1120keV_gamma_gated.pdf");
     c4->SaveAs("FittedGammaGatedEx/Ex_1120keV_gamma_gated.root");
+
+    
+    // Excitation energy with 2516 keV gamma gate
+    TCanvas *c5 = new TCanvas("c5", "Excitation energy, 2516 keV gamma gated", 800, 600);
+    TH1F *h_excite_PIdgated_2516keVgated = (TH1F*)dir->Get("h_excite_PIdgated_2516keVgated");
+    h_excite_PIdgated_2516keVgated->Draw();
+    h_excite_PIdgated_2516keVgated->Rebin(5);
+    h_excite_PIdgated_2516keVgated->GetXaxis()->SetTitle("Excitation energy [MeV]");
+	h_excite_PIdgated_2516keVgated->GetYaxis()->SetTitle("Counts / 50 keV");
+    // Fitting the excitation energy
+    h_excite_PIdgated_2516keVgated->GetXaxis()->SetRangeUser(1,5);
+    TF1 *gaus_fit_2516 = new TF1("gaus_fit_2516", "gaus(0)+pol1(3)", 2.0, 3.0);
+    int maxBin_2516 = h_excite_PIdgated_2516keVgated->GetMaximumBin();
+    double amp_guess_2516 = h_excite_PIdgated_2516keVgated->GetBinContent(maxBin_2516);
+    double mean_guess_2516 = h_excite_PIdgated_2516keVgated->GetBinCenter(maxBin_2516);
+    gaus_fit_2516->SetParameter(0, amp_guess_2516); // height of the tallest bin
+    gaus_fit_2516->SetParameter(1, mean_guess_2516); // energy of the tallest bin
+    gaus_fit_2516->SetParameter(2, 0.025);  // initial guess of 25 keV for sigma     
+	gaus_fit_2516->SetParLimits(1,2,3); // Set limits for the mean parameter
+	gaus_fit_2516->SetParLimits(2, 0.001, 0.400); // Set limits for the sigma parameter to be between 1 and 400 keV
+    gaus_fit_2516->SetParName(0, "Gaus Amp");
+    gaus_fit_2516->SetParName(1, "Mean");
+    gaus_fit_2516->SetParName(2, "Sigma");
+    gaus_fit_2516->SetParName(3, "Bgk Intercept");
+    gaus_fit_2516->SetParName(4, "Bgk Slope");
+    h_excite_PIdgated_2516keVgated->Fit(gaus_fit_2516, "R");
+    gaus_fit_2516->SetLineColor(kRed);
+    gaus_fit_2516->Draw("same");
+    c5->SaveAs("FittedGammaGatedEx/Ex_2516keV_gamma_gated.pdf");
+    c5->SaveAs("FittedGammaGatedEx/Ex_2516keV_gamma_gated.root");
+
+
+    // Excitation energy with 3745 keV gamma gate
+    TCanvas *c6 = new TCanvas("c6", "Excitation energy, 3745 keV gamma gated", 800, 600);
+    TH1F *h_excite_PIdgated_3745keVgated = (TH1F*)dir->Get("h_excite_PIdgated_3745keVgated");
+    h_excite_PIdgated_3745keVgated->Draw();
+    h_excite_PIdgated_3745keVgated->Rebin(5);
+    h_excite_PIdgated_3745keVgated->GetXaxis()->SetTitle("Excitation energy [MeV]");
+	h_excite_PIdgated_3745keVgated->GetYaxis()->SetTitle("Counts / 50 keV");
+    // Fitting the excitation energy
+    h_excite_PIdgated_3745keVgated->GetXaxis()->SetRangeUser(1,5);
+    TF1 *gaus_fit_3745 = new TF1("gaus_fit_3745", "gaus(0)+pol1(3)", 2.8, 4.2);
+    int maxBin_3745 = h_excite_PIdgated_3745keVgated->GetMaximumBin();
+    double amp_guess_3745 = h_excite_PIdgated_3745keVgated->GetBinContent(maxBin_3745);
+    double mean_guess_3745 = h_excite_PIdgated_3745keVgated->GetBinCenter(maxBin_3745);
+    gaus_fit_3745->SetParameter(0, amp_guess_3745); // height of the tallest bin
+    gaus_fit_3745->SetParameter(1, mean_guess_3745); // energy of the tallest bin
+    gaus_fit_3745->SetParameter(2, 0.025);  // initial guess of 25 keV for sigma     
+	gaus_fit_3745->SetParLimits(1,3,4); // Set limits for the mean parameter
+	gaus_fit_3745->SetParLimits(2, 0.001, 0.400); // Set limits for the sigma parameter to be between 1 and 400 keV
+    gaus_fit_3745->SetParName(0, "Gaus Amp");
+    gaus_fit_3745->SetParName(1, "Mean");
+    gaus_fit_3745->SetParName(2, "Sigma");
+    gaus_fit_3745->SetParName(3, "Bgk Intercept");
+    gaus_fit_3745->SetParName(4, "Bgk Slope");
+    h_excite_PIdgated_3745keVgated->Fit(gaus_fit_3745, "R");
+    gaus_fit_3745->SetLineColor(kRed);
+    gaus_fit_3745->Draw("same");
+    c6->SaveAs("FittedGammaGatedEx/Ex_3745keV_gamma_gated.pdf");
+    c6->SaveAs("FittedGammaGatedEx/Ex_3745keV_gamma_gated.root");
 }

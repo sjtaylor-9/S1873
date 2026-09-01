@@ -152,8 +152,8 @@ void FitGammas() {
     // Now fitting gammas from states near/in Gamow window
     // For higher energy gammas, the TIGRESS efficiency is much lower and they are less common so rebinning the data so that the photopeaks are easier to fit
     // ----------------------------------------------------------------------------
-    h_tigress_spec->Rebin(4); // Rebin the histogram to have 4 keV bins
-	h_tigress_spec->GetYaxis()->SetTitle("Counts / 4 keV");
+    h_tigress_spec->Rebin(10); // Rebin the histogram to have 10 keV bins
+	h_tigress_spec->GetYaxis()->SetTitle("Counts / 10 keV");
 
     // 4556 keV gamma uniquely identifies the 7.42 MeV state
     // Fit the 4556 keV peak with a Gaussian function
@@ -293,5 +293,135 @@ void FitGammas() {
     c1->SaveAs("FittedGammas/Doppler_corrected_4984keV.pdf");
     c1->SaveAs("FittedGammas/Doppler_corrected_4984keV.root");
 
+    // 4286 keV gamma uniquely identifies the 6.033 MeV state
+    // Fit the 4286 keV peak with a Gaussian function
+    h_tigress_spec->GetXaxis()->SetRangeUser(3800, 4800);
+    TF1 *gaus_fit_4286 = new TF1("gaus_fit_4286", "gaus(0)+pol1(3)", 4200, 4400);
+    int maxBin_4286 = h_tigress_spec->GetMaximumBin();
+    double amp_guess_4286 = h_tigress_spec->GetBinContent(maxBin_4286);
+    double mean_guess_4286 = h_tigress_spec->GetBinCenter(maxBin_4286);
+    gaus_fit_4286->SetParameter(0, amp_guess_4286); // height of the tallest bin
+    gaus_fit_4286->SetParameter(1, mean_guess_4286); // energy of the tallest bin
+    gaus_fit_4286->SetParameter(2, 25);  // initial guess of 25 keV for sigma     
+	gaus_fit_4286->SetParLimits(1,4265,4305); // Set limits for the mean parameter
+	gaus_fit_4286->SetParLimits(2, 3, 120); // Set limits for the sigma parameter
+    gaus_fit_4286->SetParName(0, "Gaus Amp");
+    gaus_fit_4286->SetParName(1, "Mean");
+    gaus_fit_4286->SetParName(2, "Sigma");
+    gaus_fit_4286->SetParName(3, "Bgk Intercept");
+    gaus_fit_4286->SetParName(4, "Bgk Slope");
+    h_tigress_spec->Fit(gaus_fit_4286, "R");
+    gaus_fit_4286->SetLineColor(kRed);
+    gaus_fit_4286->Draw("same");
+    h_tigress_spec->GetXaxis()->SetRangeUser(3800, 4800);
+    gPad->Modified();
+    gPad->Update();
+    c1->SaveAs("FittedGammas/Doppler_corrected_4286keV.pdf");
+    c1->SaveAs("FittedGammas/Doppler_corrected_4286keV.root");
+
+    // 3166 keV gamma uniquely identifies the 6.033 MeV state
+    // Fit the 3166 keV peak with a Gaussian function
+    h_tigress_spec->GetXaxis()->SetRangeUser(2600, 3600);
+    TF1 *gaus_fit_3166 = new TF1("gaus_fit_3166", "gaus(0)+pol1(3)", 3100, 3300);
+    int maxBin_3166 = h_tigress_spec->GetMaximumBin();
+    double amp_guess_3166 = h_tigress_spec->GetBinContent(maxBin_3166);
+    double mean_guess_3166 = h_tigress_spec->GetBinCenter(maxBin_3166);
+    gaus_fit_3166->SetParameter(0, amp_guess_3166); // height of the tallest bin
+    gaus_fit_3166->SetParameter(1, mean_guess_3166); // energy of the tallest bin
+    gaus_fit_3166->SetParameter(2, 25);  // initial guess of 25 keV for sigma     
+	gaus_fit_3166->SetParLimits(1,3140,3190); // Set limits for the mean parameter
+	gaus_fit_3166->SetParLimits(2, 3, 100); // Set limits for the sigma parameter
+    gaus_fit_3166->SetParName(0, "Gaus Amp");
+    gaus_fit_3166->SetParName(1, "Mean");
+    gaus_fit_3166->SetParName(2, "Sigma");
+    gaus_fit_3166->SetParName(3, "Bgk Intercept");
+    gaus_fit_3166->SetParName(4, "Bgk Slope");
+    h_tigress_spec->Fit(gaus_fit_3166, "R");
+    gaus_fit_3166->SetLineColor(kRed);
+    gaus_fit_3166->Draw("same");
+    h_tigress_spec->GetXaxis()->SetRangeUser(2600, 3600);
+    gPad->Modified();
+    gPad->Update();
+    c1->SaveAs("FittedGammas/Doppler_corrected_3166keV.pdf");
+    c1->SaveAs("FittedGammas/Doppler_corrected_3166keV.root");
+
+
+    // 5080 keV gamma uniquely identifies the 5.431 MeV state and the 5093 keV gamma uniquely identifies the 7.96 MeV state.
+    // Can fit with a single Gaussian since the gamma gated Ex will be well distinguished.
+    // Fit the 5080 and 5093 keV peaks with a Gaussian function
+    h_tigress_spec->GetXaxis()->SetRangeUser(4000, 6000);
+    TF1 *gaus_fit_5080_5093 = new TF1("gaus_fit_5080_5093", "gaus(0)+pol1(3)", 5000, 5150);
+    int maxBin_5080_5093 = h_tigress_spec->GetMaximumBin();
+    double amp_guess_5080_5093 = h_tigress_spec->GetBinContent(maxBin_5080_5093);
+    double mean_guess_5080_5093 = h_tigress_spec->GetBinCenter(maxBin_5080_5093);
+    gaus_fit_5080_5093->SetParameter(0, amp_guess_5080_5093); // height of the tallest bin
+    gaus_fit_5080_5093->SetParameter(1, mean_guess_5080_5093); // energy of the tallest bin
+    gaus_fit_5080_5093->SetParameter(2, 25);  // initial guess of 25 keV for sigma     
+	gaus_fit_5080_5093->SetParLimits(1,5070,5100); // Set limits for the mean parameter
+	gaus_fit_5080_5093->SetParLimits(2, 3, 100); // Set limits for the sigma parameter
+    gaus_fit_5080_5093->SetParName(0, "Gaus Amp");
+    gaus_fit_5080_5093->SetParName(1, "Mean");
+    gaus_fit_5080_5093->SetParName(2, "Sigma");
+    gaus_fit_5080_5093->SetParName(3, "Bgk Intercept");
+    gaus_fit_5080_5093->SetParName(4, "Bgk Slope");
+    h_tigress_spec->Fit(gaus_fit_5080_5093, "R");
+    gaus_fit_5080_5093->SetLineColor(kRed);
+    gaus_fit_5080_5093->Draw("same");
+    h_tigress_spec->GetXaxis()->SetRangeUser(4000, 6000);
+    gPad->Modified();
+    gPad->Update();
+    c1->SaveAs("FittedGammas/Doppler_corrected_5080_5093keV.pdf");
+    c1->SaveAs("FittedGammas/Doppler_corrected_5080_5093keV.root");
+
     
+    // Gammas contributing to 3400 keV peak: 3400 keV (6267 -> 2866), 3405 keV (6271 -> 2866), 3411 keV (9857 -> 6448), 3495 keV (9941 -> 6448)
+    h_tigress_spec->GetXaxis()->SetRangeUser(3200, 3800);
+    TF1 *gaus_fit_3400 = new TF1("gaus_fit_3400", "gaus(0)+pol1(3)", 3325, 3475);
+    int maxBin_3400 = h_tigress_spec->GetMaximumBin();
+    double amp_guess_3400 = h_tigress_spec->GetBinContent(maxBin_3400);
+    double mean_guess_3400 = h_tigress_spec->GetBinCenter(maxBin_3400);
+    gaus_fit_3400->SetParameter(0, amp_guess_3400); // height of the tallest bin
+    gaus_fit_3400->SetParameter(1, mean_guess_3400); // energy of the tallest bin
+    gaus_fit_3400->SetParameter(2, 25);  // initial guess of 25 keV for sigma     
+	gaus_fit_3400->SetParLimits(1,3360,3430); // Set limits for the mean parameter
+	gaus_fit_3400->SetParLimits(2, 3, 100); // Set limits for the sigma parameter
+    gaus_fit_3400->SetParName(0, "Gaus Amp");
+    gaus_fit_3400->SetParName(1, "Mean");
+    gaus_fit_3400->SetParName(2, "Sigma");
+    gaus_fit_3400->SetParName(3, "Bgk Intercept");
+    gaus_fit_3400->SetParName(4, "Bgk Slope");
+    h_tigress_spec->Fit(gaus_fit_3400, "R");
+    gaus_fit_3400->SetLineColor(kRed);
+    gaus_fit_3400->Draw("same");
+    h_tigress_spec->GetXaxis()->SetRangeUser(3200, 3800);
+    gPad->Modified();
+    gPad->Update();
+    c1->SaveAs("FittedGammas/Doppler_corrected_3400keV.pdf");
+    c1->SaveAs("FittedGammas/Doppler_corrected_3400keV.root");
+
+
+    // Gammas contributing to 3740 keV peak: 
+    h_tigress_spec->GetXaxis()->SetRangeUser(3200, 4400);
+    TF1 *gaus_fit_3740 = new TF1("gaus_fit_3740", "gaus(0)+pol1(3)", 3625, 3825);
+    int maxBin_3740 = h_tigress_spec->GetMaximumBin();
+    double amp_guess_3740 = h_tigress_spec->GetBinContent(maxBin_3740);
+    double mean_guess_3740 = h_tigress_spec->GetBinCenter(maxBin_3740);
+    gaus_fit_3740->SetParameter(0, amp_guess_3740); // height of the tallest bin
+    gaus_fit_3740->SetParameter(1, mean_guess_3740); // energy of the tallest bin
+    gaus_fit_3740->SetParameter(2, 25);  // initial guess of 25 keV for sigma     
+	gaus_fit_3740->SetParLimits(1,3725,3755); // Set limits for the mean parameter
+	gaus_fit_3740->SetParLimits(2, 3, 100); // Set limits for the sigma parameter
+    gaus_fit_3740->SetParName(0, "Gaus Amp");
+    gaus_fit_3740->SetParName(1, "Mean");
+    gaus_fit_3740->SetParName(2, "Sigma");
+    gaus_fit_3740->SetParName(3, "Bgk Intercept");
+    gaus_fit_3740->SetParName(4, "Bgk Slope");
+    h_tigress_spec->Fit(gaus_fit_3740, "R");
+    gaus_fit_3740->SetLineColor(kRed);
+    gaus_fit_3740->Draw("same");
+    h_tigress_spec->GetXaxis()->SetRangeUser(3200, 4400);
+    gPad->Modified();
+    gPad->Update();
+    c1->SaveAs("FittedGammas/Doppler_corrected_3740keV.pdf");
+    c1->SaveAs("FittedGammas/Doppler_corrected_3740keV.root");
 }
